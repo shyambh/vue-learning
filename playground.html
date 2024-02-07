@@ -6,5 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Playground — Complete Intro to Vue 3</title>
   </head>
-  <body></body>
+  <body>
+    <div id = 'app'>
+      <!-- Using v-if and v-else to handle conditionals -->
+      <p v-if="placeholder.length % 2 === 0">Even : {{ placeholder }}</p>
+
+      <p v-else>Odd : {{ message }}</p>
+
+      <!-- Using v-for directive to handle a for loop -->
+      <ul>
+        <li v-for="item in listOfItems">{{ item.id }}
+          <ul>
+            <li>
+              {{ item.name }}
+                <ul>
+                  <li v-for="number in item.numList">
+                    {{ number }}
+                  </li>
+                </ul>
+            </li>
+          </ul>
+
+        </li>
+      </ul>
+
+      
+      <p v-text="placeholder"></p>
+      
+    </div>
+    <h1> Hello Bro! </h1>
+  </body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue
+        const app = createApp({
+          data() {
+          return {
+                placeholder: "Placeholder Text",
+                listOfItems: [
+                {
+                  id: '56a3f87d-84b4-474d-a515-415aa3a9fcfa',
+                  name: 'Shyam',
+                  numList: [1,2,3]
+                },
+                {
+                  id: '0bfd4927-7983-4fc5-bf50-8bd42934732f',
+                  name: 'Bijaya',
+                  numList: [4,5,6]
+                }, 
+                {
+                  id: '8062ad31-6c67-451d-aff6-7cfd2bee333c',
+                  name: 'Shashwat',
+                  numList: [7,8,9]
+                },
+                {
+                  id: '251c084e-a523-4cad-a82e-93aecc74d896',
+                  name: 'Buwa',
+                  numList: [10,11,12]
+                },
+                {
+                  id: '3340bcab-8547-4d28-ad0b-01e7705f3a4a',
+                  name: 'Mommy',
+                  numList: [13,14,15]
+                }
+                ]
+          }
+        }
+        })
+      app.mount('#app')
+    </script>
 </html>
