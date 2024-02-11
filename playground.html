@@ -13,6 +13,14 @@
 
       <p v-else>Odd : {{ message }}</p>
 
+      <hr>
+      <h2>Counter</h2>
+      <p>{{ count }}</p>
+      <button v-on:click="incrementCount">Increment Count</button>
+      
+      <button v-on:click="decrementCount" :disabled="count === 0">Decrement Count</button>
+      <hr>
+
       <!-- Using v-for directive to handle a for loop -->
       <ul>
         <li v-for="item in listOfItems">{{ item.id }}
@@ -42,6 +50,7 @@
         const app = createApp({
           data() {
           return {
+                count: 0,
                 placeholder: "Placeholder Text",
                 listOfItems: [
                 {
@@ -70,6 +79,14 @@
                   numList: [13,14,15]
                 }
                 ]
+          }
+        },
+        methods: {
+          incrementCount(){
+            this.count++
+          },
+          decrementCount(){
+            this.count--
           }
         }
         })
