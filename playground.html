@@ -16,9 +16,13 @@
       <hr>
       <h2>Counter</h2>
       <p>{{ count }}</p>
+   
       <button v-on:click="incrementCount">Increment Count</button>
       
       <button v-on:click="decrementCount" :disabled="count === 0">Decrement Count</button>
+
+      <label for="incrementAmount">Increment By:</label>
+      <input type="number" v-model>
       <hr>
 
       <!-- Using v-for directive to handle a for loop -->
@@ -51,6 +55,7 @@
           data() {
           return {
                 count: 0,
+                incrementAmount: 1,
                 placeholder: "Placeholder Text",
                 listOfItems: [
                 {
@@ -83,10 +88,15 @@
         },
         methods: {
           incrementCount(){
-            this.count++
+            this.count += this.incrementAmount
           },
           decrementCount(){
             this.count--
+          },
+          changeIncrementAmount(event){
+            console.log(event.target.value)
+            this.incrementAmount = parseInt(event.target.value)
+
           }
         }
         })
