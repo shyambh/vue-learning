@@ -6,5 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div id="app">
+      {{ message }}
+      <div>
+        <ul>
+          <li v-for="character in characters">
+            {{ character.epic }}
+            <ul>
+              <li>
+                {{ character.name }}
+              </li>
+            </ul>
+            
+          <br/>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+  </body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return ({ 
+          message: "But baba has work to do",
+          characters: [
+          {
+            name: "Krishna",
+            epic: "Mahabharat"
+          },
+          {
+            name: "Parashuram",
+            epic: "Vishnu Purana"
+          },
+          {
+            name: "Shiva",
+            epic: "Shiva Purana"
+          },
+          {
+            name: "Gautama Buddha",
+            epic: "Buddhism"
+          },
+          {
+            name: "Durga",
+            epic: "Durga Saptashati"
+          }
+          ],
+          arr: ['a','b','c'] 
+        })
+      }
+    }).mount("#app")
+  </script>
 </html>
