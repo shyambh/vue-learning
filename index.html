@@ -5,23 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+      }
+
+      .div1, .div2 {
+        width: 50%;
+        padding: 10px;
+        box-sizing: border-box
+      }
+
+      button#fav{
+        background-color: rgb(139, 196, 139);
+      }
+      button#unfav{
+        background-color: rgb(195, 120, 120);
+      }
+    </style>
   </head>
   <body>
-    <div id="app">
-      {{ message }}
+    <div id="app" class="container">
       <div>
+        <b>Epic Characters</b>
+      </div>
+      <div class="div1">
         <ul>
-          <li v-for="character in characters">
-            {{ character.epic }}
-            <ul>
+          <li v-for="epicInfo in epicDetails">
+            {{ epicInfo.epic }}
+            <ul v-for="character in epicInfo.characters">
               <li>
-                {{ character.name }}
+                {{ character }} 
+                <button id="fav" v-if="!favorites.includes(character)" @click="addToFavorites" :value="character" >Add to Favorites</button>
+                <button id="unfav" v-else @click="removeFromFavorites" :value="character">
+                  Remove from Favorites
+                </button>
               </li>
             </ul>
             
           <br/>
           </li>
         </ul>
+      </div>
+      <div class="div2">
+        <p><b>Favorite Characters</b></p>
+        <div>
+          <ul v-if="favorites.length > 0">
+            <li v-for="favChar in favorites">
+              {{favChar}}
+            </li>
+          </ul>
+          <p v-else>
+            No Favorite Characters
+          </p>
+        </div>
       </div>
       
     </div>
@@ -33,31 +70,49 @@
     createApp({
       data() {
         return ({ 
-          message: "But baba has work to do",
-          characters: [
+          message: "Epic Characters",
+          epicDetails: [
           {
-            name: "Krishna",
-            epic: "Mahabharat"
+            epic: "Mahabharat",
+            characters: ["Krishna", "Arjun", "Karna"]
           },
           {
-            name: "Parashuram",
-            epic: "Vishnu Purana"
+            epic: "Ramayana",
+            characters: ["Ram", "Hanuman", "Jatayu"]
           },
           {
-            name: "Shiva",
-            epic: "Shiva Purana"
+            epic: "Greek Mythology",
+            characters: ["Thor", "Loki", "Zeus"]
           },
           {
-            name: "Gautama Buddha",
-            epic: "Buddhism"
+            epic: "Vishnu Avatars",
+            characters: ["Parashuram", "Baraha", "Kalki"]
           },
           {
-            name: "Durga",
-            epic: "Durga Saptashati"
+            epic: "Mahavidya",
+            characters: ["Tripurasundari", "Kali", "Chhinamasta"]
           }
           ],
-          arr: ['a','b','c'] 
+          favorites: [] 
         })
+      },
+      computed: {
+        buttonText(event){
+          
+        }
+      },
+      methods: {
+        addToFavorites(event){
+          selectedCharacter = event.target.value
+          
+          this.favorites.push(selectedCharacter)
+          //console.log(this.favorites)
+        },
+        removeFromFavorites(event){
+          selectedCharacter = event.target.value
+          index = this.favorites.indexOf(selectedCharacter)
+          this.favorites.splice(index, 1)
+        }
       }
     }).mount("#app")
   </script>
