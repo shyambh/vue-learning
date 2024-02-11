@@ -10,7 +10,7 @@
         display: flex;
       }
 
-      .div1, .div2 {
+      .div1, .div2, .div3 {
         width: 50%;
         padding: 10px;
         box-sizing: border-box
@@ -56,9 +56,23 @@
             </li>
           </ul>
           <p v-else>
-            No Favorite Characters
+            You don't have any favorite characters
           </p>
         </div>
+      </div>
+
+      <div class="div3">
+        <b>Add Character</b>
+        <div>
+
+          <select name="Choose Epic" v-model="selectedEpic">
+            <option v-for="epic in getAllEpics" :value="epic">{{epic}}</option>
+          </select>
+          <input type="text" v-model="newCharacterName" :disabled="selectedEpic.length === 0">
+          <button @click="addNewCharacter">Add Character</button>
+          <p v-if="successAddingNewCharacter">Successfully added the character : {{newCharacterName}} in the epic : {{ selectedEpic }}</p>
+        </div>
+      
       </div>
       
     </div>
@@ -71,6 +85,9 @@
       data() {
         return ({ 
           message: "Epic Characters",
+          newCharacterName: "",
+          selectedEpic: "",
+          successAddingNewCharacter: false,
           epicDetails: [
           {
             epic: "Mahabharat",
@@ -97,16 +114,26 @@
         })
       },
       computed: {
-        buttonText(event){
-          
+        getAllEpics(){
+          allEpics = []
+          this.epicDetails.map(details => {
+            allEpics.push(details.epic)
+          })
+          return allEpics
         }
       },
       methods: {
+        addNewCharacter(event){
+          console.log(this.newCharacterName)
+          this.epicDetails.filter(item => item.epic === this.selectedEpic)[0].characters.push(this.newCharacterName)
+
+          alert(`Successfully added ${this.newCharacterName} to the epic ${this.selectedEpic}`)
+        },
         addToFavorites(event){
           selectedCharacter = event.target.value
           
           this.favorites.push(selectedCharacter)
-          //console.log(this.favorites)
+          
         },
         removeFromFavorites(event){
           selectedCharacter = event.target.value
