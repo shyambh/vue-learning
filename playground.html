@@ -17,12 +17,14 @@
       <h2>Counter</h2>
       <p>{{ count }}</p>
    
-      <button v-on:click="incrementCount">Increment Count</button>
-      
-      <button v-on:click="decrementCount" :disabled="count === 0">Decrement Count</button>
+      <label>Increment By:</label>
+      <input type="number" v-model="incrementAmount">
+      <div>
 
-      <label for="incrementAmount">Increment By:</label>
-      <input type="number" v-model>
+      </div>
+      <button v-on:click="incrementCount" v-bind:disabled="this.incrementAmount < 0">Increment Count</button>
+      <button v-on:click="decrementCount" v-bind:disabled = "this.incrementAmount < 0 || this.count < this.incrementAmount">Decrement Count</button>
+      <button v-on:click="resetCounter">Reset</button>
       <hr>
 
       <!-- Using v-for directive to handle a for loop -->
@@ -88,15 +90,16 @@
         },
         methods: {
           incrementCount(){
+            const amount = this.incrementAmount
+            console.log(amount)
             this.count += this.incrementAmount
           },
           decrementCount(){
-            this.count--
+            this.count -= this.incrementAmount
           },
-          changeIncrementAmount(event){
-            console.log(event.target.value)
-            this.incrementAmount = parseInt(event.target.value)
-
+          resetCounter(){
+            this.count = 0
+            this.incrementAmount = 1
           }
         }
         })
